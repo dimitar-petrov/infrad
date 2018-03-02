@@ -1,0 +1,12 @@
+* infrad
+
+
+[[https://travis-ci.org/dimitar-petrov/infrad][https://travis-ci.org/dimitar-petrov/infrad.svg?branch=master]]
+
+
+License
+-------
+
+This code is licensed under the [[https://github.com/dimitar-petrov/infrad/blob/master/LICENSE][GPL 3.0 License]]
+
+
