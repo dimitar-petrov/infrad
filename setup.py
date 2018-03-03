@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
 import pip
 
@@ -32,9 +33,12 @@ for item in requirements:
     if item.req:
         requires.append(str(item.req))
 
+version_file = open('VERSION')
+version = version_file.read().strip()
+
 setup(
     name="infrad",
-    version='0.0.0',
+    version=version,
     description="Python daemon that controls infrastructure",
     long_description="\n\n".join([open("README.org").read()]),
     license='GPL 3.0',
