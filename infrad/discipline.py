@@ -55,6 +55,11 @@ class ScreenLocker():
         """Execute i3lock with specific parameters"""
         subprocess.call(('i3lock', '-c', '000000', '-f'))
 
+    @staticmethod
+    def unlock():
+        """Unlock the screen"""
+        subprocess.call(('pkill', 'i3lock'))
+
     def secure_lock(self, wait=30):
         """Change user password and lock screen.
         After wait time restore the original password"""
@@ -62,7 +67,3 @@ class ScreenLocker():
         self.lock()
         time.sleep(wait)
         self.pass_changer.restore_pass(self.user)
-
-    def unlock(self):
-        """Unlock the screen"""
-        subprocess.call(('pkill', 'i3lock'))
