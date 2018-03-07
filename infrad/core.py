@@ -8,13 +8,13 @@
     Description: Core functionality of infrad
 """
 import time
-import signal
 from threading import Thread, Event
 from concurrent.futures import ThreadPoolExecutor
 import zmq
 from decouple import config
 from infrad.events import ResponseEvent, EVENT_TYPE
 from infrad.plugin import Plugin
+from infrad.utils import GracefulInterruptHandler
 
 class ZMQListener(Thread):
     """ZMQ Server responsible for handling events from multiple sources"""
@@ -46,10 +46,12 @@ class ZMQListener(Thread):
             if plugin.init_command == request.method:
                 future = self.executor.submit(plugin.do_work, **request.kwargs)
                 if future.done():
-                    return str(future.result())
+                    return future.result()
                 if request.sync:
                     return self._wait_for_future_result(future)
-                return "Sent to thread-pool"
+                return "Async Execution in ThreadPool"
+
+        return "Method not found {}".format(request.method)
 
     @staticmethod
     def _wait_for_future_result(future, retries=10):
@@ -63,25 +65,17 @@ class ZMQListener(Thread):
         self.stop_request.set()
         super().join(timeout)
 
-EXIT_NOW = False
-
-def finish(signum, frame):
-    """Catch exit signal"""
-    global EXIT_NOW
-    print('Exiting Gracefully')
-    EXIT_NOW = True
-
 def main():
     """Start the listener and wait for SIGTERM or SIGINT signal"""
-    signals = [signal.SIGINT, signal.SIGTERM]
-    for sig in signals:
-        signal.signal(sig, finish)
 
     listener = ZMQListener()
     listener.start()
 
-    while not EXIT_NOW:
-        time.sleep(1)
+    with GracefulInterruptHandler() as han:
+        while True:
+            time.sleep(1)
+            if han.interrupted:
+                break
 
     listener.join()
 
