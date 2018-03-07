@@ -1,2 +1,4 @@
 click>=6.7
 python-decouple>=3.1
+pyzmq>=17.0.0
+epc>=0.0.5

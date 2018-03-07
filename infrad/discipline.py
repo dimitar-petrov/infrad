@@ -65,5 +65,5 @@ class ScreenLocker():
         After wait time restore the original password"""
         self.pass_changer.set_random_pass(self.user)
         self.lock()
-        time.sleep(wait)
+        time.sleep(int(wait))
         self.pass_changer.restore_pass(self.user)
