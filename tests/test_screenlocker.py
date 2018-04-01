@@ -1,6 +1,6 @@
 import pytest
-from context import discipline
 import subprocess
+from infrad import discipline
 
 TEST_USER = 'test_user'
 

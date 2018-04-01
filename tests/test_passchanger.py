@@ -2,8 +2,8 @@ import os
 import pytest
 import subprocess
 import crypt
-from context import discipline
-from decouple import config, UndefinedValueError
+from decouple import UndefinedValueError
+from infrad import discipline
 
 TEST_USER = 'test_user'
 TEST_PASSHASH = 'test_passhash'

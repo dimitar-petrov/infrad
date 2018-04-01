@@ -17,7 +17,7 @@ RUN yes | \
 RUN pip install -r /code/test-requirements.txt
 
 ENV GITLAB_SELF_SIGNED_REPO ''
-RUN if [ ! -z $GITLAB_SELF_SIGEND_REPO ]; then \
+RUN if [ -n $GITLAB_SELF_SIGEND_REPO ]; then \
     openssl s_client -showcerts -connect $GITLAB_SELF_SIGNED_REPO \
     -showcerts </dev/null 2>/dev/null|openssl x509 \
     -outform pem > /usr/local/share/ca-certificates/custom-ss-gitlab.crt; \
