@@ -9,7 +9,6 @@
 """
 from infrad.shared.domain_model import DomainModel
 
-
 class Command:
     """Model for storing commands"""
     def __init__(self, comm, args, kwargs, sync=False):

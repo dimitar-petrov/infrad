@@ -2,6 +2,7 @@ import os
 import pytest
 import subprocess
 import crypt
+import decouple
 from decouple import UndefinedValueError
 from infrad import discipline
 
@@ -19,6 +20,7 @@ def passchanger():
 def test_missing_config_exception(mocker):
     with mocker.patch('decouple.config.SUPPORTED') as mock:
         mock.return_value = dict()
+        decouple.config.config = None
         with pytest.raises(UndefinedValueError):
             passchanger = discipline.PassChanger()
 

@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-
 """
     File name: execute_command_use_case.py
     Author: Dimitar Petrov
@@ -18,6 +17,7 @@ class CommandExecuteUseCase(uc.UseCase):
         endpoint (str): Endpoint plugin implementing execution.
 
     """
+
     def __init__(self, endpoint):
         self.endpoint = endpoint
 
@@ -33,5 +33,10 @@ class CommandExecuteUseCase(uc.UseCase):
         # TODO: fix this pass of request object
         # Backend layer should not be aware of request_object
 
-        command_result = self.endpoint.exec(request_object)
+        command_result = self.endpoint.exec(
+            comm=request_object.comm,
+            args=request_object.args,
+            kwargs=request_object.kwargs,
+            sync=request_object.sync)
+
         return res.ResponseSuccess(command_result)
