@@ -3,7 +3,7 @@ from infrad.domain.models import CommandResult
 from infrad.shared.consts import JobState
 
 
-class Plugin: #pylint: disable-msg=R0903
+class Plugin:  # pylint: disable-msg=R0903
     """Base class for all plugins. Singleton instances of subclasses are
     created automatically and stored in Plugin.plugins class field."""
     plugins = []

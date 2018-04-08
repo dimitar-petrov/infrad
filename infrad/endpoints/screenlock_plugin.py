@@ -1,5 +1,8 @@
+import logging
 from infrad.endpoints.plugin_endpoint import Plugin
 from infrad.discipline import ScreenLocker
+
+logger = logging.getLogger(__name__)
 
 
 class SLockPlugin(Plugin): #pylint: disable-msg=R0903

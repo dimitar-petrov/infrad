@@ -14,6 +14,7 @@ import subprocess
 import crypt
 from decouple import config
 
+
 class PassChanger():
     """Implementing password change for linux"""
     def __init__(self, pw_length=12):
@@ -43,6 +44,7 @@ class PassChanger():
     def restore_pass(self, user):
         """Restore old password of user user"""
         self.change_pass(user, self.hashdict[user])
+
 
 class ScreenLocker():
     """Lock the screen and change loging password"""
