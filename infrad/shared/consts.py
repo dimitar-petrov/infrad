@@ -1,3 +1,7 @@
-from enum import Enum
+from enum import IntEnum
 
-JOB_STATE = Enum("JOB_STATE", "RUNNING COMPLETED FAILED")
+
+class JobState(IntEnum):
+    COMPLETED = 0
+    RUNNING = 1
+    FAILED = -1

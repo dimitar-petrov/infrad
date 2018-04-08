@@ -54,5 +54,3 @@ def test_restore_pass(mocker, passchanger):
         passchanger.restore_pass(TEST_USER)
 
     passchanger.change_pass.assert_called_once_with(TEST_USER, TEST_PASSHASH)
-
-
