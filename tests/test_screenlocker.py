@@ -1,16 +1,18 @@
 import pytest
 import subprocess
-from infrad import discipline
+from infrad.endpoints import discipline
 
 TEST_USER = 'test_user'
+
 
 @pytest.fixture
 def screenlocker():
     screenlocker = discipline.ScreenLocker(user=TEST_USER)
     return screenlocker
 
+
 def test_lock(mocker, screenlocker):
-    with mocker.patch('subprocess.call') as mock:
+    with mocker.patch('subprocess.call'):
         screenlocker.lock()
 
     subprocess.call.assert_called_once_with(('i3lock', '-c', '000000', '-f'))
@@ -26,8 +28,9 @@ def test_secure_lock(mocker, screenlocker):
     screenlocker.lock.assert_called_once()
     screenlocker.pass_changer.restore_pass.assert_called_with(TEST_USER)
 
+
 def test_unlock(mocker, screenlocker):
-    with mocker.patch('subprocess.call') as mock:
+    with mocker.patch('subprocess.call'):
         screenlocker.unlock()
 
     subprocess.call.assert_called_once_with(('pkill', 'i3lock'))

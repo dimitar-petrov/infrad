@@ -7,13 +7,13 @@ from infrad.shared.consts import JobState
 
 
 def test_plugin_endpoint_init():
-    endpoint = pe.PluginEndpoint()
+    endpoint = pe.PluginEndpoint(wait=0)
 
     assert isinstance(endpoint.executor, ThreadPoolExecutor)
 
 
 def test_plugin_endpoint_sync_command_success(mocker):
-    endpoint = pe.PluginEndpoint()
+    endpoint = pe.PluginEndpoint(wait=0)
 
     mock = mocker.Mock()
     mock.module = 'module'
@@ -31,7 +31,7 @@ def test_plugin_endpoint_sync_command_success(mocker):
 
 
 def test_plugin_endpoint_sync_command_fail(mocker):
-    endpoint = pe.PluginEndpoint()
+    endpoint = pe.PluginEndpoint(wait=0)
 
     mock = mocker.Mock()
     mock.module = 'module'
@@ -50,7 +50,7 @@ def test_plugin_endpoint_sync_command_fail(mocker):
 
 # @pytest.mark.skip
 def test_plugin_endpoint_async_command_success(mocker):
-    endpoint = pe.PluginEndpoint()
+    endpoint = pe.PluginEndpoint(wait=0)
 
     mock = mocker.Mock()
     mock.module = 'module'
@@ -68,7 +68,7 @@ def test_plugin_endpoint_async_command_success(mocker):
 
 
 def test_plugin_endpoint_async_command_fail(mocker):
-    endpoint = pe.PluginEndpoint()
+    endpoint = pe.PluginEndpoint(wait=0)
 
     mock = mocker.Mock()
     mock.module = 'module'

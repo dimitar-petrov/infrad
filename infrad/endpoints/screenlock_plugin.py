@@ -1,6 +1,6 @@
 import logging
 from infrad.endpoints.plugin_endpoint import Plugin
-from infrad.discipline import ScreenLocker
+from infrad.endpoints.discipline import ScreenLocker
 
 logger = logging.getLogger(__name__)
 
