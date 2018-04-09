@@ -10,11 +10,7 @@ class SimpleEPCClient(Plugin):
     def __init__(self):
         self.client = EPCClient((config('EPC_SERVER_HOST'),
                                  config('EPC_SERVER_PORT')))
-        self.init_command = 'emacs_control'
+        self.module = 'emacs_control'
 
-    def do_work(self, *args, **kwargs):
-        action = kwargs.get('action')
-        if action is not None:
-            return self.client.call_sync(action, args, timeout=1)
-        else:
-            return "Failed: Supply action"
+    def do_work(self, action, *args, **kwargs):
+        return self.client.call_sync(action, args, timeout=1)

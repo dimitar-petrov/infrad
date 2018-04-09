@@ -9,10 +9,12 @@
 """
 from infrad.shared.domain_model import DomainModel
 
+
 class Command:
     """Model for storing commands"""
-    def __init__(self, comm, args, kwargs, sync=False):
-        self.comm = comm
+    def __init__(self, module, action, args, kwargs, sync=False):
+        self.module = module
+        self.action = action
         self.args = args
         self.kwargs = kwargs
         self.sync = sync
@@ -21,7 +23,8 @@ class Command:
     def from_dict(cls, adict):
         """Initializer from a dictionary"""
         command = cls(
-            comm=adict['comm'],
+            module=adict['module'],
+            action=adict['action'],
             args=adict['args'],
             kwargs=adict['kwargs'],
             sync=adict['sync'])

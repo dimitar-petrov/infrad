@@ -10,8 +10,9 @@ class CommandExecuteRequestObject(req.ValidRequestObject):
         attr2 (:obj:YY, optional): Description of Y.
 
     """
-    def __init__(self, comm, args, kwargs, sync=False):
-        self.comm = comm
+    def __init__(self, module, action, args, kwargs, sync=False):
+        self.module = module
+        self.action = action
         self.args = args
         self.kwargs = kwargs
         self.sync = sync
@@ -22,10 +23,15 @@ class CommandExecuteRequestObject(req.ValidRequestObject):
 
         invalid_req = req.InvalidRequestObject()
 
-        if 'comm' not in adict:
-            invalid_req.add_error('comm', 'Is mandatory')
-        elif not isinstance(adict['comm'], str):
-            invalid_req.add_error('comm', 'Is not str')
+        if 'module' not in adict:
+            invalid_req.add_error('module', 'Is mandatory')
+        elif not isinstance(adict['module'], str):
+            invalid_req.add_error('module', 'Is not str')
+
+        if 'action' not in adict:
+            invalid_req.add_error('action', 'Is mandatory')
+        elif not isinstance(adict['action'], str):
+            invalid_req.add_error('action', 'Is not str')
 
         if 'args' in adict and not isinstance(adict['args'], list):
             invalid_req.add_error('args', 'Is not list')
@@ -38,7 +44,8 @@ class CommandExecuteRequestObject(req.ValidRequestObject):
             return invalid_req
 
         return CommandExecuteRequestObject(
-            comm=adict['comm'],
+            module=adict['module'],
+            action=adict['action'],
             args=adict.get('args', list()),
             kwargs=adict.get('kwargs', dict()),
             sync=adict.get('sync', False))

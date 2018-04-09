@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-
 """
     File name: discipline.py
     Author: Dimitar Petrov
@@ -17,6 +16,7 @@ from decouple import config
 
 class PassChanger():
     """Implementing password change for linux"""
+
     def __init__(self, pw_length=12):
         self.pw_length = pw_length
         self.hashdict = {config('LOGIN'): config('PASSHASH')}
@@ -30,7 +30,8 @@ class PassChanger():
 
     def generate_passphrase(self):
         """Generate random passphrase using pwgen"""
-        passphrase = subprocess.check_output(['pwgen', str(self.pw_length), '1'])
+        passphrase = subprocess.check_output(
+            ['pwgen', str(self.pw_length), '1'])
         passphrase = passphrase.decode('utf-8').strip()
         return passphrase
 
@@ -48,6 +49,7 @@ class PassChanger():
 
 class ScreenLocker():
     """Lock the screen and change loging password"""
+
     def __init__(self, user):
         self.pass_changer = PassChanger()
         self.user = user

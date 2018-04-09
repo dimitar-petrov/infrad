@@ -16,12 +16,13 @@ def test_plugin_endpoint_sync_command_success(mocker):
     endpoint = pe.PluginEndpoint()
 
     mock = mocker.Mock()
-    mock.init_command = 'comm'
+    mock.module = 'module'
+    mock.action = 'action'
     mock.do_work.return_value = 'job completed successfully'
     pe.Plugin.plugins = [mock]
 
-
-    result = endpoint.exec('comm', ['arg1', 'arg2'], {'kwarg1': 'value1'})
+    result = endpoint.exec('module', 'action', ['arg1', 'arg2'],
+                           {'kwarg1': 'value1'})
 
     assert isinstance(result, m.CommandResult)
     assert result.message == 'Sync Execution Finished'
@@ -33,16 +34,17 @@ def test_plugin_endpoint_sync_command_fail(mocker):
     endpoint = pe.PluginEndpoint()
 
     mock = mocker.Mock()
-    mock.init_command = 'comm'
+    mock.module = 'module'
+    mock.action = 'action'
     mock.do_work.return_value = 'job completed successfully'
     pe.Plugin.plugins = [mock]
 
-
-    result = endpoint.exec('missing_comm', ['arg1', 'arg2'], {'kwarg1': 'value1'})
+    result = endpoint.exec('missing_module', 'action', ['arg1', 'arg2'],
+                           {'kwarg1': 'value1'})
 
     assert isinstance(result, m.CommandResult)
     assert result.message == 'Command not found'
-    assert result.data == None
+    assert result.data is None
     assert result.status == JobState.FAILED
 
 
@@ -51,30 +53,33 @@ def test_plugin_endpoint_async_command_success(mocker):
     endpoint = pe.PluginEndpoint()
 
     mock = mocker.Mock()
-    mock.init_command = 'comm'
+    mock.module = 'module'
+    mock.action = 'action'
     mock.do_work.side_effect = lambda *args, **kwargs: time.sleep(0.01)
     pe.Plugin.plugins = [mock]
 
-    result = endpoint.exec('comm', ['arg1', 'arg2'], {'kwarg1': 'value1'})
+    result = endpoint.exec('module', 'action', ['arg1', 'arg2'],
+                           {'kwarg1': 'value1'})
 
     assert isinstance(result, m.CommandResult)
     assert result.message == 'Async Execution In Progress'
     assert result.status == JobState.RUNNING
-    assert result.data == None
+    assert result.data is None
 
 
 def test_plugin_endpoint_async_command_fail(mocker):
     endpoint = pe.PluginEndpoint()
 
     mock = mocker.Mock()
-    mock.init_command = 'comm'
+    mock.module = 'module'
+    mock.action = 'action'
     mock.do_work.side_effect = ['out']
     pe.Plugin.plugins = [mock]
 
-
-    result = endpoint.exec('missing_comm', ['arg1', 'arg2'], {'kwarg1': 'value1'})
+    result = endpoint.exec('missing_module', 'action', ['arg1', 'arg2'],
+                           {'kwarg1': 'value1'})
 
     assert isinstance(result, m.CommandResult)
     assert result.message == 'Command not found'
     assert result.status == JobState.FAILED
-    assert result.data == None
+    assert result.data is None

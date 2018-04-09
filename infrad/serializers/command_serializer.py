@@ -6,7 +6,8 @@ class CommandEncoder(json.JSONEncoder):
     def default(self, o):  # pylint: disable=E0202
         try:
             to_serialize = {
-                'comm': o.comm,
+                'module': o.module,
+                'action': o.action,
                 'args': o.args,
                 'kwargs': o.kwargs,
                 'sync': o.sync,

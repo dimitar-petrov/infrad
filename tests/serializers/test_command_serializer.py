@@ -5,7 +5,8 @@ from infrad.serializers import command_serializer as cs
 
 def test_serialize_domain_command():
     command = models.Command(
-        'command',
+        'module',
+        'action',
         args=['arg1', 'arg2'],
         kwargs={
             'kwarg1': 'value1',
@@ -15,7 +16,8 @@ def test_serialize_domain_command():
 
     expected_json = """
         {
-            "comm": "command",
+            "module": "module",
+            "action": "action",
             "args": ["arg1", "arg2"],
             "kwargs": {
                 "kwarg1": "value1",

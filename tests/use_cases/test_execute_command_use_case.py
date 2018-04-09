@@ -9,7 +9,8 @@ from infrad.use_cases import command_execute_use_case as uc
 @pytest.fixture
 def domain_command_requests():
     command1 = {
-        'comm': 'command1',
+        'module': 'module1',
+        'action': 'action1',
         'args': ['arg11', 'arg12', 'arg13'],
         'kwargs': {
             'kwarg11': 'value11',
@@ -19,7 +20,8 @@ def domain_command_requests():
     }
 
     command2 = {
-        'comm': 'command2',
+        'module': 'module2',
+        'action': 'action2',
         'args': ['arg21', 'arg22', 'arg23'],
         'kwargs': {
             'kwarg21': 'value21',

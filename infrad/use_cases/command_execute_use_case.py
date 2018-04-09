@@ -34,7 +34,8 @@ class CommandExecuteUseCase(uc.UseCase):
         # Backend layer should not be aware of request_object
 
         command_result = self.endpoint.exec(
-            comm=request_object.comm,
+            module=request_object.module,
+            action=request_object.action,
             args=request_object.args,
             kwargs=request_object.kwargs,
             sync=request_object.sync)
