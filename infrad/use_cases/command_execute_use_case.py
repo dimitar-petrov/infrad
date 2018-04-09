@@ -37,7 +37,6 @@ class CommandExecuteUseCase(uc.UseCase):
             module=request_object.module,
             action=request_object.action,
             args=request_object.args,
-            kwargs=request_object.kwargs,
-            sync=request_object.sync)
+            kwargs=request_object.kwargs)
 
         return res.ResponseSuccess(command_result)

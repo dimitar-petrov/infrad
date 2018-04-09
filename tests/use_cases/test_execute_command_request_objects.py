@@ -13,7 +13,6 @@ def test_build_command_execute_request_object():
     assert req.action == 'action'
     assert req.args == ['arg1', 'arg2']
     assert req.kwargs == {'kwarg1': 'value1', 'kwarg2': 'value2'}
-    assert req.sync is False
 
 
 def test_build_command_execute_request_object_from_dict():
@@ -24,15 +23,12 @@ def test_build_command_execute_request_object_from_dict():
         'kwargs': {
             'kwarg1': 'value1',
             'kwarg2': 'value2'
-        },
-        'sync': True
-    })
+        }})
 
     assert req.module == 'module'
     assert req.action == 'action'
     assert req.args == ['arg1', 'arg2']
     assert req.kwargs == {'kwarg1': 'value1', 'kwarg2': 'value2'}
-    assert req.sync is True
 
 
 def test_build_command_execute_request_object_from_dict_with_invalid_args():
@@ -43,9 +39,7 @@ def test_build_command_execute_request_object_from_dict_with_invalid_args():
         'kwargs': {
             'kwarg1': 'value1',
             'kwarg2': 'value2'
-        },
-        'sync': True
-    })
+        }})
 
     assert req.has_errors()
     assert req.errors[0]['parameter'] == 'args'

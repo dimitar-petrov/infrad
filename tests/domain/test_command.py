@@ -9,14 +9,12 @@ def test_command_model_init():
         kwargs={
             'kwarg1': 'value1',
             'kwarg2': 'value2'
-        },
-        sync=True)
+        })
 
     assert command.module == 'module'
     assert command.action == 'action'
     assert command.args == ['arg1', 'arg2']
     assert command.kwargs == {'kwarg1': 'value1', 'kwarg2': 'value2'}
-    assert command.sync is True
 
 
 def test_command_model_from_dict():
@@ -27,12 +25,9 @@ def test_command_model_from_dict():
         'kwargs': {
             'kwarg1': 'value1',
             'kwarg2': 'value2'
-        },
-        'sync': True
-    })
+        }})
 
     assert command.module == 'module'
     assert command.action == 'action'
     assert command.args == ['arg1', 'arg2']
     assert command.kwargs == {'kwarg1': 'value1', 'kwarg2': 'value2'}
-    assert command.sync is True

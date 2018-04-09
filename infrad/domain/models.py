@@ -12,12 +12,11 @@ from infrad.shared.domain_model import DomainModel
 
 class Command:
     """Model for storing commands"""
-    def __init__(self, module, action, args, kwargs, sync=False):
+    def __init__(self, module, action, args, kwargs):
         self.module = module
         self.action = action
         self.args = args
         self.kwargs = kwargs
-        self.sync = sync
 
     @classmethod
     def from_dict(cls, adict):
@@ -26,8 +25,7 @@ class Command:
             module=adict['module'],
             action=adict['action'],
             args=adict['args'],
-            kwargs=adict['kwargs'],
-            sync=adict['sync'])
+            kwargs=adict['kwargs'])
 
         return command
 

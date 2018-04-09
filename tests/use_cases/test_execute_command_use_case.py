@@ -15,9 +15,7 @@ def domain_command_requests():
         'kwargs': {
             'kwarg11': 'value11',
             'kwarg12': 'value12'
-        },
-        'sync': True
-    }
+        }}
 
     command2 = {
         'module': 'module2',
@@ -26,9 +24,7 @@ def domain_command_requests():
         'kwargs': {
             'kwarg21': 'value21',
             'kwarg22': 'value22'
-        },
-        'sync': True
-    }
+        }}
 
     return [command1, command2]
 

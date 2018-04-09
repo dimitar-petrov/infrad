@@ -10,7 +10,6 @@ class CommandEncoder(json.JSONEncoder):
                 'action': o.action,
                 'args': o.args,
                 'kwargs': o.kwargs,
-                'sync': o.sync,
             }
 
             return to_serialize

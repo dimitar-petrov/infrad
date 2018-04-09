@@ -1,10 +1,19 @@
+#! /usr/bin/env python
+
+"""
+    File name: plugin_endpoint.py
+    Author: Dimitar Petrov
+    Date created: 2018/04/09
+    Python Version: 3.6
+    Description: Base class and executor for plugin architecture of infrad
+"""
 import time
 import logging
 from concurrent.futures import ThreadPoolExecutor
 from infrad.domain.models import CommandResult
 from infrad.shared.consts import JobState
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # pylint: disable-msg=C0103
 
 
 class Plugin:  # pylint: disable-msg=R0903
@@ -22,12 +31,17 @@ class Plugin:  # pylint: disable-msg=R0903
 
 
 class PluginEndpoint:
+    """Plugin action executor.
+
+    Attributes:
+        wait (int, optional): Delay in seconds to wait for action exit status.
+    """
     def __init__(self, wait=1):
         self.sync_wait = wait
         self.executor = ThreadPoolExecutor(
             max_workers=5, thread_name_prefix='PLUGIN_EXEC')
 
-    def exec(self, module, action, args, kwargs, sync=False):
+    def exec(self, module, action, args, kwargs):
         for plugin in Plugin.plugins:
             if plugin.module == module:
                 future = self.executor.submit(plugin.do_work, action, *args,

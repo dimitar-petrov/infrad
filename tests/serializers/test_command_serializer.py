@@ -11,8 +11,7 @@ def test_serialize_domain_command():
         kwargs={
             'kwarg1': 'value1',
             'kwarg2': 'value2'
-        },
-        sync=True)
+        })
 
     expected_json = """
         {
@@ -22,9 +21,7 @@ def test_serialize_domain_command():
             "kwargs": {
                 "kwarg1": "value1",
                 "kwarg2": "value2"
-            },
-            "sync": true
-        }
+            }}
     """
 
     assert json.loads(json.dumps(

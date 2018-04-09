@@ -10,12 +10,11 @@ class CommandExecuteRequestObject(req.ValidRequestObject):
         attr2 (:obj:YY, optional): Description of Y.
 
     """
-    def __init__(self, module, action, args, kwargs, sync=False):
+    def __init__(self, module, action, args, kwargs):
         self.module = module
         self.action = action
         self.args = args
         self.kwargs = kwargs
-        self.sync = sync
 
     @classmethod
     def from_dict(cls, adict):
@@ -47,5 +46,4 @@ class CommandExecuteRequestObject(req.ValidRequestObject):
             module=adict['module'],
             action=adict['action'],
             args=adict.get('args', list()),
-            kwargs=adict.get('kwargs', dict()),
-            sync=adict.get('sync', False))
+            kwargs=adict.get('kwargs', dict()))
