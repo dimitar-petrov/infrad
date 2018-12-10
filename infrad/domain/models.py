@@ -10,7 +10,7 @@
 from infrad.shared.domain_model import DomainModel
 
 
-class Command:
+class Command:  # pylint: disable-msg=R0903
     """Model for storing commands"""
     def __init__(self, module, action, args, kwargs):
         self.module = module
@@ -30,7 +30,7 @@ class Command:
         return command
 
 
-class CommandResult:
+class CommandResult:  # pylint: disable-msg=R0903
     """Model for storing output of commands"""
     def __init__(self, status, message, data=None):
         self.status = status

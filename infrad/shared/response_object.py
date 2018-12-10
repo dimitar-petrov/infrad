@@ -18,7 +18,8 @@ class ResponseFailure:
         self.type = type_
         self.message = self._format_message(message)
 
-    def _format_message(self, msg):
+    @staticmethod
+    def _format_message(msg):
         if isinstance(msg, Exception):
             return "{}: {}".format(
                 msg.__class__.__name__, "{}".format(msg))

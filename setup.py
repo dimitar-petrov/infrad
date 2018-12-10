@@ -1,11 +1,20 @@
-# -*- coding: utf-8 -*-
 import sys
-import pip
 
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
-tests_require = ['pytest', 'pytest-cache', 'pytest-cov']
+tests_require = [
+    'pytest',
+    'pytest-cache',
+    'pytest-cov',
+    'pytest-mock'
+    'pytest-benchmark',
+    'tox',
+    'tox-pyenv',
+    'pylint',
+    'mock',
+]
+
 
 class PyTest(TestCommand):
     def finalize_options(self):
@@ -19,25 +28,19 @@ class PyTest(TestCommand):
         errno = pytest.main(self.test_args)
         sys.exit(errno)
 
-links = []
-requires = []
 
-requirements = pip.req.parse_requirements(
-    'requirements.txt', session=pip.download.PipSession())
+requires = [
+    'click>=6.7',
+    'python-decouple>=3.1',
+    'apscheduler>=3.5.1',
+    'pytz>=2018.4',
+]
 
-for item in requirements:
-    # we want to handle package names and also repo urls
-    if getattr(item, 'link', None): # newer pip has link
-        links.append(str(item.link))
-    if item.req:
-        requires.append(str(item.req))
-
-version_file = open('VERSION')
-version = version_file.read().strip()
+VERSION = open('VERSION').read().strip()
 
 setup(
     name="infrad",
-    version=version,
+    version=VERSION,
     description="Python daemon that controls infrastructure",
     long_description="\n\n".join([open("README.org").read()]),
     license='GPL 3.0',
@@ -45,7 +48,6 @@ setup(
     author_email="petrov.dimp@gmail.com",
     url="https://infrad.readthedocs.org",
     packages=find_packages(),
-    dependency_links=links,
     install_requires=requires,
     include_package_data=True,
     entry_points={'console_scripts': [
