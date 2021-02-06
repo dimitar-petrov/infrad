@@ -1,4 +1,4 @@
-import collections
+import collections.abc as collabc
 from infrad.shared import request_object as req
 
 
@@ -36,7 +36,7 @@ class CommandExecuteRequestObject(req.ValidRequestObject):
             invalid_req.add_error('args', 'Is not list')
 
         if 'kwargs' in adict and not isinstance(adict['kwargs'],
-                                                collections.Mapping):
+                                                collabc.Mapping):
             invalid_req.add_error('kwargs', 'Is not mapping')
 
         if invalid_req.has_errors():

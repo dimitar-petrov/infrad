@@ -12,8 +12,8 @@ def screenlocker():
 
 
 def test_lock(mocker, screenlocker):
-    with mocker.patch('subprocess.call'):
-        screenlocker.lock()
+    mocker.patch('subprocess.call')
+    screenlocker.lock()
 
     subprocess.call.assert_called_once_with(('i3lock', '-c', '000000', '-f'))
 
@@ -30,7 +30,7 @@ def test_secure_lock(mocker, screenlocker):
 
 
 def test_unlock(mocker, screenlocker):
-    with mocker.patch('subprocess.call'):
-        screenlocker.unlock()
+    mocker.patch('subprocess.call')
+    screenlocker.unlock()
 
     subprocess.call.assert_called_once_with(('pkill', 'i3lock'))

@@ -11,15 +11,19 @@ import os
 import time
 import subprocess
 import crypt
-from decouple import config
+from infrad.passtore import PassStore
 
 
 class PassChanger():
     """Implementing password change for linux"""
 
-    def __init__(self, pw_length=12):
+    def __init__(self, pw_length=12, username=None, passhash=None):
         self.pw_length = pw_length
-        self.hashdict = {config('LOGIN'): config('PASSHASH')}
+        self.pstore = PassStore()
+        self.hashdict = {
+            username or self.pstore.getkey("Infra/casanova", "username"):
+            passhash or self.pstore.getkey("Infra/casanova", "passhash")
+        }
 
     @staticmethod
     def change_pass(user, pass_hash):

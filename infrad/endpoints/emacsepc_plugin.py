@@ -11,6 +11,7 @@ import logging
 from decouple import config
 from epc.client import EPCClient
 from infrad.endpoints.plugin_endpoint import Plugin
+from infrad.setting import EPC
 
 logger = logging.getLogger(__name__)  # pylint: disable-msg=C0103
 
@@ -18,8 +19,7 @@ logger = logging.getLogger(__name__)  # pylint: disable-msg=C0103
 class SimpleEPCClient(Plugin):  # pylint: disable-msg=R0903
     """EPC Emacs interface plugin."""
     def __init__(self):
-        self.client = EPCClient((config('EPC_SERVER_HOST'),
-                                 config('EPC_SERVER_PORT')))
+        self.client = EPCClient(EPC)
         self.module = 'emacs_control'
 
     def do_work(self, action, *args, **kwargs):

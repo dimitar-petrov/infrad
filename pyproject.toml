@@ -1,0 +1,50 @@
+# Make lockfile
+# $ dephell deps convert --env=lock
+[tool.dephell.lock]
+from = {format = "poetry", path = "pyproject.toml"}
+to = {format = "poetrylock", path = "poetry.lock"}
+
+[tool.poetry]
+name = "infrad"
+version = "0.0.1"
+authors = ["Dimitar Petrov <dpetrov@finxploit.com>"]
+description = "Event Driven Clean Code Infrastructure System"
+license = "Proprietary"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Framework :: Setuptools Plugin",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Proprietary",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.7",
+]
+
+[tool.poetry.scripts]
+console = "infrad.console:main"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+apscheduler = ">=3.5.1"
+click = ">=6.7"
+python-decouple = ">=3.1"
+pytz = ">=2018.4"
+requests = "*"
+
+pytest = { version = "*", optional = true }
+pytest-mock = { version = "*", optional = true }
+bump2version = { version = "*", optional = true }
+selenium = "^3.141.0"
+pypass = "^0.2.1"
+pyyaml = "^5.3.1"
+epc = "^0.0.5"
+youtube_dl = "^2021.1.16"
+passpy = "^1.0.2"
+
+[tool.poetry.extras]
+tests = ["pytest", "pytest-mock", "bump2version"]
+
+[build-system]
+# Should be the same as `$POETRY_VERSION`:
+requires = ["poetry==1.0.3"]
+build-backend = "poetry.masonry.api"
